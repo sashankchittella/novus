@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="./loan.css" />
+</head>
+
+<body>
+    <section class="container">
+        <header>Loan Registration Form</header>
+        <p>It is compulsory to fill <span>*</span> elements</p>
+        <form action="#" class="form">
+            <div class="column">
+                <div class="input-box">
+                    <label>Loan Type <span>*</span></label>
+                    <div class="select-box">
+                        <select id="loanTypeSelect" required>
+                            <option value="Select">--Select--</option>
+                            <option value="Commercial">Commercial</option>
+                            <option value="Real Estate">Real Estate</option>
+                            <option value="Personal">Personal</option>
+                            <option value="House Loan">House Loan</option>
+                            <option value="Car">Car</option>
+                            <option value="Education ">Education</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <label>Loan Amount <span>*</span></label>
+                    <input type="number" name="loan amount" placeholder="amount in rupees" required />
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="input-box">
+                    <label>Email Address <span>*</span></label>
+                    <input type="email" placeholder="@gmail.com" required />
+                </div>
+                <div class="input-box">
+                    <label>Loan Tenure <span>*</span></label>
+                    <input id="loanTenureInput" type="number" placeholder="enter no. of years">
+                    <span id="loanTenureError" style="color:red;"></span>
+                </div>
+            </div>
+            <div class="column">
+                <div class="input-box">
+                    <label>Phone Number <span>*</span></label>
+                    <input id="phoneNumberInput" type="text" placeholder="Enter phone number" required maxlength="10"/>
+                </div>
+                <div class="input-box">
+                    <label>Birth Date <span>*</span></label>
+                    <input type="date" placeholder="Enter birth date" required />
+                </div>
+            </div>
+            <div class="gender-box">
+                <h3>Gender <span>*</span></h3>
+                <div class="gender-option">
+                    <div class="gender">
+                        <input type="radio" id="check-male" name="gender" />
+                        <label for="check-male">male</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="check-female" name="gender" />
+                        <label for="check-female">Female</label>
+                    </div>
+                    <div class="gender">
+                        <input type="radio" id="check-other" name="gender" />
+                        <label for="check-other">prefer not to say</label>
+                    </div>
+                </div>
+            </div>
+            <div class="input-box address">
+                <label>Special Considerations (optional)</label>
+                <div class="column">
+                    <div class="select-box">
+                        <select>
+                            <option hidden>Maritial Status</option>
+                            <option>Single</option>
+                            <option>Married</option>
+                            <option>Divorced</option>
+                        </select>
+                    </div>
+                    <input type="number" placeholder="Down Payment(in ruppes)" />
+                </div>
+                <div class="column">
+                    <div class="input-box">
+                        <label>Name of the Cosigner</label>
+                        <input type="text">
+                    </div>
+                    <div class="input-box">
+                        <label>Occupation of the Cosigner</label>
+                        <input type="text">
+                    </div>
+                </div>
+            </div>
+            <button>Submit</button>
+        </form>
+    </section>
+</body>
+
+<script>
+    // <!-- loan amount restriciton -->
+    const loanTypeSelect = document.getElementById('loanTypeSelect');
+    const loanAmountInput = document.querySelector('input[name="loan amount"]');
+    const loanMaxAmounts = {
+        'Commercial': 2000000,
+        'Real Estate': 1500000,
+        'Personal': 500000,
+        'House Loan': 5000000,
+        'Car': 1500000,
+        'Education ': 4000000
+    };
+    const interestRates = {
+        'House Loan': 8.60,
+        'Car': 8.70,
+        'Education ': 8.55,
+        'Personal': 10.90,
+        'Real Estate': 12,
+        'Commercial': 11
+    };
+
+    loanTypeSelect.addEventListener('change', function () {
+        loanAmountInput.value = '';
+    });
+
+    loanAmountInput.addEventListener('change', function () {
+        const selectedLoanType = loanTypeSelect.value;
+        if (selectedLoanType === 'Select') return;
+
+        const maxAmount = loanMaxAmounts[selectedLoanType];
+        if (this.value > maxAmount) {
+            alert(`For a ${selectedLoanType} loan, the maximum amount is ₹${maxAmount.toLocaleString()}.`);
+            this.value = '';
+        } else {
+            const rate = interestRates[selectedLoanType];
+            const interestAmount = (this.value * rate) / 100;
+            const totalAmount = parseFloat(this.value) + interestAmount;
+            alert(`For a loan of ₹${this.value.toLocaleString()} at an interest rate of ${rate}%, the total amount to be repaid will be ₹${totalAmount.toLocaleString()}.`);
+        }
+    });
+
+
+    // <!-- loan type script -->
+    document.getElementById('loanTypeSelect').addEventListener('focus', function () {
+        this.querySelector('option[value="Select"]').disabled = true;
+    });
+    // <!-- phn number regex -->
+    const phoneNumberInput = document.getElementById('phoneNumberInput');
+
+    phoneNumberInput.addEventListener('blur', function () {
+        // Regular expression to check if the number is 10 digits and starts with 6, 7, 8, or 9
+        const phoneRegex = /^[6-9]\d{9}$/;
+
+        if (this.value && !phoneRegex.test(this.value)) {
+            alert('Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9.');
+            this.value = '';  // Clear the input field
+        }
+    });
+
+
+    // <!-- loan tenure script -->
+    document.getElementById('loanTenureInput').addEventListener('input', function () {
+        var value = this.value;
+        if (value > 12) {
+            document.getElementById('loanTenureError').innerText = "Loan tenure cannot exceed 12 years.";
+            this.value = '';  // Optionally, you can clear the input if it's invalid
+        } else {
+            document.getElementById('loanTenureError').innerText = '';
+        }
+    });
+</script>
+
+</html>
