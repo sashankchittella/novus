@@ -7,14 +7,18 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
-
+:root{
+    --button: #5099bd;
+    --background: #BBE1FA;
+}
 body {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 20px;
-    background: #FFECD1;
+    background: var(--background);
+    /* background: #FFECD1; */
 }
 span{
     color:rgba(204, 0, 0, 0.749)
@@ -41,7 +45,6 @@ p{
 }
 p{
     color:#15616D;
-
 }
 .container .form {
     margin-top: 30px;
@@ -137,7 +140,8 @@ p{
     border: none;
     cursor: pointer;
     transition: all 0.2s ease;
-    background: #23a0b4;
+    background: var(--button);
+    /* background: #23a0b4; */
 }
 
 .form button:hover {

@@ -18,17 +18,19 @@
 
             <form id="login" class="input-group">
                 <label>Account Number:</label>
-                <input type="number" class="input-field" placeholder="Type here" required maxlength="9">
+                <input type="number" id="accountNumber" class="input-field" placeholder="Type here" required 
+                    maxlength="5">
                 <label for="email">Email:</label>
-                <input type="email" class="input-field" id="email" placeholder="example@gmail.com" name="email"
+                <input type="email" id="email" class="input-field" id="email" placeholder="example@gmail.com" name="email"
                     required>
                 <label>Enter password:</label>
-                <input type="password" class="input-field" id="pwdInputField" placeholder="Type here" required maxlength="">
+                <input type="password" class="input-field" id="pwdInputField" placeholder="Type here" required
+                    id="password" maxlength="">
                 <span id="pwdErrorDisplay" style="color: red;"></span>
                 <input type="checkbox" class="check-box"> <span>Remember password</span>
-                <button type="submit" class="submit-btn">Login</button>
+                <button type="submit" id="RED" class="submit-btn">Login</button>
             </form>
-            <form id="register" class="input-group">
+            <form id="register" class="input-group" >
                 <!-- Step 1 -->
                 <p>Personal Details</p>
                 <div class="step1-row">
@@ -122,8 +124,6 @@
 
                 <button type="submit" id="register-btn">Register</button>
             </form>
-
-
         </div>
     </div>
 
@@ -244,9 +244,41 @@
             }
         });
 
-
+        document.addEventListener('DOMContentLoaded',function(){
+            var loginButton = document.getElementById("RED");
+            loginButton.addEventListener('click',function(){
+            window.location.href = 'Account.html';
+            })
+        });
     </script>
 
+    <!-- <script>// Hard-coded user data (for demonstration purposes)
+        const users = [
+            { accountNumber: "200002", email: "sashank@gmail.com", password: "Sashank@2003" },
+            { accountNumber: "200048", email: "teerth@gmail.com", password: "Teerth@2002" },
+            { accountNumber: "210044", email: "rupa@gmail.com", password: "Rupa@2003" }
+        ];
+
+        const loginForm = document.getElementById("login");
+
+        login.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Get user input
+            const accountNumber = document.getElementById("accountNumber").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Check if the entered credentials match any user
+            const user = users.find(user => user.accountNumber === accountNumber && user.email === email && user.password === password);
+
+            if (user) {
+                alert("login succesful")
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        });
+    </script> -->
 </body>
 
 </html>
