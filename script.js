@@ -1,58 +1,57 @@
 // ------------------------------------------ index.html ----------------------------------------------------
-    // <!-- JS for card section -->
+// <!-- JS for carousel -->
 
-    const creditButton = document.getElementById("credit-button");
-    const debitButton = document.getElementById("debit-button");
-    const creditContent = document.getElementById("credit-content");
-    const debitContent = document.getElementById("debit-content");
+  const slider = document.querySelector('.slider');
+  const leftArrow = document.querySelector('.left');
+  const rightArrow = document.querySelector('.right');
+  const indicatorParents = document.querySelector('.controls ul li')
+  var sectionindex = 0;
 
-    // Initially show credit card details
+  function setindex() {
+    document.querySelector('.controls .selected').classList.remove('selected');
+    slider.style.transform = 'translate(' + (sectionindex) * -20 + '%)';
+  }
+  document.querySelectorAll('.controls li').forEach(function (indicator, ind) {
+    indicator.addEventListener('click', function () {
+      sectionindex = ind;
+      setindex();
+      indicator.classList.add('selected');
+    });
+  });
+
+  leftArrow.addEventListener('click', function () {
+    sectionindex = (sectionindex > 0) ? sectionindex - 1 : 0;
+    indicatorParents.children[sectionindex].classList.add('selected')
+    setindex();
+  });
+
+  rightArrow.addEventListener('click', function () {
+    sectionindex = (sectionindex < 3) ? sectionindex + 1 : 3;
+    indicatorParents.children[sectionindex].classList.add('selected');
+    setindex();
+  });
+
+
+// <!-- JS for card section -->
+  const creditButton = document.getElementById("credit-button");
+  const debitButton = document.getElementById("debit-button");
+  const creditContent = document.getElementById("credit-content");
+  const debitContent = document.getElementById("debit-content");
+
+  // Initially show credit card details
+  creditContent.style.display = "block";
+
+  creditButton.addEventListener("click", () => {
     creditContent.style.display = "block";
+    debitContent.style.display = "none";
+  });
 
-    creditButton.addEventListener("click", () => {
-      creditContent.style.display = "block";
-      debitContent.style.display = "none";
-    });
-
-    debitButton.addEventListener("click", () => {
-      creditContent.style.display = "none";
-      debitContent.style.display = "block";
-    });
-
-    // JS of carousel
-    const slider = document.querySelector('.slider');
-    const leftArrow = document.querySelector('.left');
-    const rightArrow = document.querySelector('.right');
-    const indicatorParents = document.querySelector('.controls ul li')
-    var sectionindex = 0;
-    
-    function setindex() {
-      document.querySelector('.controls .selected').classList.remove('selected');
-      slider.style.transform = 'translate(' + (sectionindex) * -20 + '%)';
-    }
-    document.querySelectorAll('.controls li').forEach(function (indicator, ind) {
-      indicator.addEventListener('click', function () {
-        sectionindex = ind;
-        setindex();
-        indicator.classList.add('selected');
-      });
-    });
-
-    leftArrow.addEventListener('click', function () {
-      sectionindex = (sectionindex > 0) ? sectionindex - 1 : 0;
-      indicatorParents.children[sectionindex].classList.add('selected')
-      setindex();
-    });
-
-    rightArrow.addEventListener('click', function () {
-      sectionindex = (sectionindex < 3) ? sectionindex + 1 : 3;
-      indicatorParents.children[sectionindex].classList.add('selected');
-      setindex();
-    });
-
+  debitButton.addEventListener("click", () => {
+    creditContent.style.display = "none";
+    debitContent.style.display = "block";
+  });
 
 // ------------------------------------------ login. html ----------------------------------------------------
-
 var x = document.getElementById("login");
 var y = document.getElementById("register");
 var z = document.getElementById("btn");
@@ -68,7 +67,7 @@ function register() {
     formBox.style.marginTop = "3%";
     formBox.style.overflow = "scroll";
     formBox.style.overflowX = "hidden";
-    
+
 }
 
 function login() {
@@ -87,7 +86,7 @@ const pwdErrorSpan = document.getElementById('pwdErrorDisplay');
 
 pwdField.addEventListener('input', function () {
     const pwdPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$]).{8,12}$/;
-    
+
     if (this.value && !pwdPattern.test(this.value)) {
         pwdErrorSpan.textContent = "Invalid password format";
     } else {
@@ -122,15 +121,15 @@ const aadharCardInput = document.getElementById('aadharCardNumber');
 aadharCardInput.addEventListener('input', function () {
     let cursorPosition = this.selectionStart;
     let rawValue = this.value.split(" ").join("");  // Remove existing spaces
-    
+
     // Check if the value is purely numeric
     if (/^\d*$/.test(rawValue)) {
         // Format with spaces after every 4 digits
         let formattedValue = rawValue.replace(/(\d{4})/g, '$1 ').trim();
-        
+
         // Adjust cursor position for spaces added
         cursorPosition += Math.floor(cursorPosition / 5) - Math.floor((cursorPosition - 1) / 5);
-        
+
         // Update the input value and cursor position
         this.value = formattedValue;
         this.selectionStart = cursorPosition;
@@ -148,9 +147,9 @@ const panError = document.getElementById('panError');
 // Convert input to uppercase and validate format as the user types
 panCardInput.addEventListener('input', function () {
     this.value = this.value.toUpperCase();
-    
+
     const panPartialRegex = /^(?:[A-Z]{1,4}|[A-Z]{4}\d{1,5}|[A-Z]{4}\d{5}[A-Z]?)$/;
-    
+
     if (this.value && !panPartialRegex.test(this.value)) {
         panError.textContent = "Invalid PAN card format";
         this.value = ''; // Clear the input value
@@ -160,7 +159,7 @@ panCardInput.addEventListener('input', function () {
 });
 panCardInput.addEventListener('blur', function () {
     const panFullRegex = /^[A-Z]{4}\d{5}[A-Z]$/;
-    
+
     if (this.value && !panFullRegex.test(this.value)) {
         panError.textContent = "Wrong PAN card number";
         this.value = ''; // Clear the input value
@@ -169,85 +168,117 @@ panCardInput.addEventListener('blur', function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded',function(){
+    var loginButton = document.getElementById("RED");
+    loginButton.addEventListener('click',function(){
+    window.location.href = 'Account.html';
+    })
+});
+
+// Hard-coded user data (for demonstration purposes)
+const users = [
+    { accountNumber: "200002", email: "sashank@gmail.com", password: "Sashank@2003" },
+    { accountNumber: "200048", email: "teerth@gmail.com", password: "Teerth@2002" },
+    { accountNumber: "210044", email: "rupa@gmail.com", password: "Rupa@2003" }
+];
+
+const loginForm = document.getElementById("login");
+
+login.addEventListener("submit", function (event) {
+    event.preventDefault(); // Prevent the form from submitting
+
+    // Get user input
+    const accountNumber = document.getElementById("accountNumber").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    // Check if the entered credentials match any user
+    const user = users.find(user => user.accountNumber === accountNumber && user.email === email && user.password === password);
+
+    if (user) {
+        alert("login succesful")
+    } else {
+        alert("Invalid credentials. Please try again.");
+    }
+});
+
 // ------------------------------------------ loan. html ----------------------------------------------------
-    // <!-- loan amount restriciton -->
+// <!-- loan amount restriciton -->
+const loanTypeSelect = document.getElementById('loanTypeSelect');
+const loanAmountInput = document.querySelector('input[name="loan amount"]');
+const loanMaxAmounts = {
+    'Commercial': 2000000,
+    'Real Estate': 1500000,
+    'Personal': 500000,
+    'House Loan': 5000000,
+    'Car': 1500000,
+    'Education ': 4000000
+};
+const interestRates = {
+    'House Loan': 8.60,
+    'Car': 8.70,
+    'Education ': 8.55,
+    'Personal': 10.90,
+    'Real Estate': 12,
+    'Commercial': 11
+};
 
-    const loanTypeSelect = document.getElementById('loanTypeSelect');
-    const loanAmountInput = document.querySelector('input[name="loan amount"]');
-    const loanMaxAmounts = {
-        'Commercial': 2000000,
-        'Real Estate': 1500000,
-        'Personal': 500000,
-        'House Loan': 5000000,
-        'Car': 1500000,
-        'Education ': 4000000
-    };
-    const interestRates = {
-        'House Loan': 8.60,
-        'Car': 8.70,
-        'Education ': 8.55,
-        'Personal': 10.90,
-        'Real Estate': 12,
-        'Commercial': 11
-    };
+loanTypeSelect.addEventListener('change', function () {
+    loanAmountInput.value = '';
+});
 
-    loanTypeSelect.addEventListener('change', function () {
-        loanAmountInput.value = '';
-    });
+loanAmountInput.addEventListener('change', function () {
+    const selectedLoanType = loanTypeSelect.value;
+    if (selectedLoanType === 'Select') return;
 
-    loanAmountInput.addEventListener('change', function () {
-        const selectedLoanType = loanTypeSelect.value;
-        if (selectedLoanType === 'Select') return;
-
-        const maxAmount = loanMaxAmounts[selectedLoanType];
-        if (this.value > maxAmount) {
-            alert(`For a ${selectedLoanType} loan, the maximum amount is ₹${maxAmount.toLocaleString()}.`);
-            this.value = '';
-        } else {
-            const rate = interestRates[selectedLoanType];
-            const interestAmount = (this.value * rate) / 100;
-            const totalAmount = parseFloat(this.value) + interestAmount;
-            alert(`For a loan of ₹${this.value.toLocaleString()} at an interest rate of ${rate}%, the total amount to be repaid will be ₹${totalAmount.toLocaleString()}.`);
-        }
-    });
-
-
-    // <!-- loan type script -->
-    document.getElementById('loanTypeSelect').addEventListener('focus', function () {
-        this.querySelector('option[value="Select"]').disabled = true;
-    });
-    // <!-- phn number regex -->
-    const phoneNumberInput = document.getElementById('phoneNumberInput');
-
-    phoneNumberInput.addEventListener('blur', function () {
-        // Regular expression to check if the number is 10 digits and starts with 6, 7, 8, or 9
-        const phoneRegex = /^[6-9]\d{9}$/;
-
-        if (this.value && !phoneRegex.test(this.value)) {
-            alert('Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9.');
-            this.value = '';  // Clear the input field
-        }
-    });
+    const maxAmount = loanMaxAmounts[selectedLoanType];
+    if (this.value > maxAmount) {
+        alert(`For a ${selectedLoanType} loan, the maximum amount is ₹${maxAmount.toLocaleString()}.`);
+        this.value = '';
+    } else {
+        const rate = interestRates[selectedLoanType];
+        const interestAmount = (this.value * rate) / 100;
+        const totalAmount = parseFloat(this.value) + interestAmount;
+        alert(`For a loan of ₹${this.value.toLocaleString()} at an interest rate of ${rate}%, the total amount to be repaid will be ₹${totalAmount.toLocaleString()}.`);
+    }
+});
 
 
-    // <!-- loan tenure script -->
-    document.getElementById('loanTenureInput').addEventListener('input', function () {
-        var value = this.value;
-        if (value > 12) {
-            document.getElementById('loanTenureError').innerText = "Loan tenure cannot exceed 12 years.";
-            this.value = '';  // Optionally, you can clear the input if it's invalid
-        } else {
-            document.getElementById('loanTenureError').innerText = '';
-        }
-    });
+// <!-- loan type script -->
+document.getElementById('loanTypeSelect').addEventListener('focus', function () {
+    this.querySelector('option[value="Select"]').disabled = true;
+});
+// <!-- phn number regex -->
+const phoneNumberInput = document.getElementById('phoneNumberInput');
+
+phoneNumberInput.addEventListener('blur', function () {
+    // Regular expression to check if the number is 10 digits and starts with 6, 7, 8, or 9
+    const phoneRegex = /^[6-9]\d{9}$/;
+
+    if (this.value && !phoneRegex.test(this.value)) {
+        alert('Please enter a valid 10-digit phone number starting with 6, 7, 8, or 9.');
+        this.value = '';  // Clear the input field
+    }
+});
+
+
+// <!-- loan tenure script -->
+document.getElementById('loanTenureInput').addEventListener('input', function () {
+    var value = this.value;
+    if (value > 12) {
+        document.getElementById('loanTenureError').innerText = "Loan tenure cannot exceed 12 years.";
+        this.value = '';  // Optionally, you can clear the input if it's invalid
+    } else {
+        document.getElementById('loanTenureError').innerText = '';
+    }
+});
 // ------------------------------------------ Account.html ----------------------------------------------------
-
 // User details
 const user = {
-    name: "John Doe",
-    accountNumber: "1234567890",
-    accountType: "Savings",
-    balance: 5000
+  name: "John Doe",
+  accountNumber: "1234567890",
+  accountType: "Savings",
+  balance: 5000
 };
 
 // Display welcome message
@@ -258,43 +289,45 @@ document.getElementById("welcome").textContent = welcomeMessage;
 document.getElementById("balance").textContent = `Rs. ${user.balance}`;
 
 function transferMoney() {
-    const transactionTable = document.getElementById("transactionHistory");
-    const accountNumber = document.getElementById("recipient").value;
-    const amount = parseInt(document.getElementById("amount").value);
-    const note = document.getElementById("note").value;
-    const currentBalanceElem = document.getElementById("balance");
-    const currentBalance = parseInt(currentBalanceElem.textContent.replace("Rs. ", ""));
-    
-    if (amount > currentBalance) {
-        document.getElementById("error").textContent = "Insufficient balance";
-        return; // exit the function early so that the balance update doesn't happen
-    } else if (amount <= 0) {
-        document.getElementById("error").textContent = "Invalid amount for transfer";
-        return;
-    }
-    else {
-        const newRow = transactionTable.insertRow();
-        newRow.insertCell(0).textContent = transactionTable.rows.length - 1;
-        newRow.insertCell(1).textContent = new Date().toLocaleString();
-        newRow.insertCell(2).textContent = accountNumber;
-        newRow.insertCell(3).textContent = note;  // Adding the note
-        const amountCell = newRow.insertCell(4);
-        amountCell.textContent = "-" + amount;
-        amountCell.style.color = "red";
-    }
-    
-    // Update balance after the transaction
-    const newBalance = currentBalance - amount;
-    currentBalanceElem.textContent = `Rs. ${newBalance}`;
-    
+  const transactionTable = document.getElementById("transactionHistory");
+  const accountNumber = document.getElementById("recipient").value;
+  const amount = parseInt(document.getElementById("amount").value);
+  const note = document.getElementById("note").value;
+  const currentBalanceElem = document.getElementById("balance");
+  const currentBalance = parseInt(currentBalanceElem.textContent.replace("Rs. ", ""));
+
+  if (amount > currentBalance) {
+    document.getElementById("error").textContent = "Insufficient balance";
+    return; // exit the function early so that the balance update doesn't happen
+  } else if (amount <= 0) {
+    document.getElementById("error").textContent = "Invalid amount for transfer";
+    return;
+  }
+  else {
+    const newRow = transactionTable.insertRow();
+    newRow.insertCell(0).textContent = transactionTable.rows.length - 1;
+    newRow.insertCell(1).textContent = new Date().toLocaleString();
+    newRow.insertCell(2).textContent = accountNumber;
+    newRow.insertCell(3).textContent = note;  // Adding the note
+    const amountCell = newRow.insertCell(4);
+    amountCell.textContent = "-" + amount;
+    amountCell.style.color = "red";
+  }
+
+  // Update balance after the transaction
+  const newBalance = currentBalance - amount;
+  currentBalanceElem.textContent = `Rs. ${newBalance}`;
+
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    var loansButton = document.getElementById('loans-button');
-    loansButton.addEventListener('click', function () {
-        window.location.href = 'loan.html';
-    });
+// apply for loans
+  document.addEventListener('DOMContentLoaded', function () {
+  var loansButton = document.getElementById('loans-button');
+  loansButton.addEventListener('click', function () {
+    window.location.href = 'loan.html';
+  });
 });
+
 
 // ------------------------------------------ Novus.html ----------------------------------------------------
     // Sample FAQs
