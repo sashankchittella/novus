@@ -198,7 +198,6 @@
             let cursorPosition = this.selectionStart;
             let rawValue = this.value.split(" ").join("");  // Remove existing spaces
 
-            // Check if the value is purely numeric
             if (/^\d*$/.test(rawValue)) {
                 // Format with spaces after every 4 digits
                 let formattedValue = rawValue.replace(/(\d{4})/g, '$1 ').trim();
@@ -211,7 +210,6 @@
                 this.selectionStart = cursorPosition;
                 this.selectionEnd = cursorPosition;
             } else {
-                // If there are any non-numeric characters, reset the value
                 this.value = rawValue;
             }
         });
