@@ -1,0 +1,284 @@
+<html>
+
+<head>
+    <title>
+        Login and rigistration form
+    </title>
+    <link rel="stylesheet" href="./login.css">
+</head>
+
+<body>
+    <div class="hero">
+        <div class="form-box" id="myForm">
+            <div class="button-box">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn" onclick="login()">Log In</button>
+                <button type="button" class="toggle-btn" onclick="register()">Open Account</button>
+            </div>
+
+            <form id="login" class="input-group">
+                <label>Account Number:</label>
+                <input type="number" id="accountNumber" class="input-field" placeholder="Type here" required 
+                    maxlength="5">
+                <label for="email">Email:</label>
+                <input type="email" id="email" class="input-field" id="email" placeholder="example@gmail.com" name="email"
+                    required>
+                <label>Enter password:</label>
+                <input type="password" class="input-field" id="pwdInputField" placeholder="Type here" required
+                    id="password" maxlength="">
+                <span id="pwdErrorDisplay" style="color: red;"></span>
+                <input type="checkbox" class="check-box"> <span>Remember password</span>
+                <button type="submit" id="RED" class="submit-btn">Login</button>
+            </form>
+            <form id="register" class="input-group" >
+                <!-- Step 1 -->
+                <p>Personal Details</p>
+                <div class="step1-row">
+                    <div class="input-box">
+                        <label for="firstName">First Name:</label>
+                        <input type="text" class="input-field" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="lastName">Last Name:</label>
+                        <input type="text" class="input-field" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                <div class="det">
+                    <div class="input-box">
+                        <label for="dob">Date of Birth:</label>
+                        <input type="date" id="dob" name="dob" required>
+                    </div>
+                    <div class="input-box">
+                        <label for="gender"> Gender:</label>
+                        <select id="gender" name="gender">
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="input-box full-width">
+                        <label for="address">Address:</label>
+                        <textarea id="address" name="address" class="input-field"></textarea>
+                    </div>
+                </div>
+                <p>Login Details</p>
+
+                <!-- Step 2 -->
+
+                <div class="input-box full-width">
+                    <label for="accountType">Account Type:</label>
+                    <select id="accountType" name="accountType">
+                        <option value="Select">--Select--</option>
+                        <option value="minor">Minor</option>
+                        <option value="savings">Savings</option>
+                        <option value="current">Current</option>
+                    </select>
+                </div>
+                <div class="input-box full-width">
+                    <label for="email">Email:</label>
+                    <input type="email" class="input-field" id="email" name="email" required>
+                </div>
+
+                <div class="det">
+                    <div class="input-box full-width">
+                        <label for="password">Password:</label>
+                        <input type="password" class="input-field" id="password" name="password" required>
+                        <span id="passwordError" style="color: red;"></span>
+                    </div>
+                    <div class="input-box full-width">
+                        <label for="confirmPassword">Re-enter Password:</label>
+                        <input type="password" class="input-field" id="confirmPassword" name="confirmPassword" required>
+                        <span id="confirmPasswordError" style="color: red;"></span>
+                    </div>
+                </div>
+                <p>Identification</p>
+
+                <!-- Step 3 -->
+
+                <div class="det">
+                    <div class="step3-row">
+                        <div class="input-box">
+                            <label for="panCardNumber">PAN Card Number:</label>
+                            <input type="text" class="input-field" id="panCardNumber" name="panCardNumber" required
+                                maxlength="10">
+                            <span id="panError"></span>
+
+                        </div>
+                        <div class="input-box">
+                            <label for="panCardUpload">Upload PAN Card:</label>
+                            <input type="file" id="panCardUpload" name="panCardUpload" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="step3-row">
+                    <div class="input-box">
+                        <label for="aadharCardNumber">Aadhar Card Number:</label>
+                        <input type="text" class="input-field" id="aadharCardNumber" name="aadharCardNumber" required
+                            maxlength="14">
+                    </div>
+                    <div class="input-box">
+                        <label for="aadharCardUpload">Upload Aadhar Card:</label>
+                        <input type="file" id="aadharCardUpload" name="aadharCardUpload" required>
+                    </div>
+                </div>
+
+                <button type="submit" id="register-btn">Register</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var x = document.getElementById("login");
+        var y = document.getElementById("register");
+        var z = document.getElementById("btn");
+        var formBox = document.getElementById("myForm"); // Get the .form-box element
+        // var registerBox = document.getElementById("register") ;
+        function register() {
+            x.style.left = "-400px";
+            y.style.left = "50px";
+            z.style.left = "110px";
+            z.style.width = "138px";
+            formBox.style.width = "50%"; // Change the width to 50%
+            formBox.style.height = "680px"; // Change the width to 50%
+            formBox.style.marginTop = "3%";
+            formBox.style.overflow = "scroll";
+            formBox.style.overflowX = "hidden";
+
+        }
+
+        function login() {
+            x.style.left = "50px";
+            y.style.left = "450px";
+            z.style.left = "0px";
+            z.style.width = "110px";
+            formBox.style.width = "380px"; // Reset the width to the default value
+            formBox.style.height = "60%"; // Reset the width to the default value
+            formBox.style.marginTop = "10%";
+            formBox.style.overflow = "hidden";
+        }
+        // <!-- password validation -->
+        const pwdField = document.getElementById('pwdInputField');
+        const pwdErrorSpan = document.getElementById('pwdErrorDisplay');
+
+        pwdField.addEventListener('input', function () {
+            const pwdPattern = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$]).{8,12}$/;
+
+            if (this.value && !pwdPattern.test(this.value)) {
+                pwdErrorSpan.textContent = "Invalid password format";
+            } else {
+                pwdErrorSpan.textContent = ""; // Clear the error message if the input is valid
+            }
+        });
+        // <!-- password re-enter password validation -->
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const passwordError = document.getElementById('passwordError');
+        const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+        const passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$]).{8,12}$/;
+
+        passwordInput.addEventListener('input', function () {
+            if (this.value && !passwordRegex.test(this.value)) {
+                passwordError.textContent = "Invalid password format";
+            } else {
+                passwordError.textContent = ""; // Clear the error message if the input is valid
+            }
+        });
+
+        confirmPasswordInput.addEventListener('input', function () {
+            if (this.value !== passwordInput.value) {
+                confirmPasswordError.textContent = "Passwords do not match";
+            } else {
+                confirmPasswordError.textContent = ""; // Clear the error message if the passwords match
+            }
+        });
+        // <!-- aadhar card validation -->
+        const aadharCardInput = document.getElementById('aadharCardNumber');
+        aadharCardInput.addEventListener('input', function () {
+            let cursorPosition = this.selectionStart;
+            let rawValue = this.value.split(" ").join("");  // Remove existing spaces
+
+            // Check if the value is purely numeric
+            if (/^\d*$/.test(rawValue)) {
+                // Format with spaces after every 4 digits
+                let formattedValue = rawValue.replace(/(\d{4})/g, '$1 ').trim();
+
+                // Adjust cursor position for spaces added
+                cursorPosition += Math.floor(cursorPosition / 5) - Math.floor((cursorPosition - 1) / 5);
+
+                // Update the input value and cursor position
+                this.value = formattedValue;
+                this.selectionStart = cursorPosition;
+                this.selectionEnd = cursorPosition;
+            } else {
+                // If there are any non-numeric characters, reset the value
+                this.value = rawValue;
+            }
+        });
+
+        // <!-- pan card validation -->
+        const panCardInput = document.getElementById('panCardNumber');
+        const panError = document.getElementById('panError');
+
+        // Convert input to uppercase and validate format as the user types
+        panCardInput.addEventListener('input', function () {
+            this.value = this.value.toUpperCase();
+
+            const panPartialRegex = /^(?:[A-Z]{1,4}|[A-Z]{4}\d{1,5}|[A-Z]{4}\d{5}[A-Z]?)$/;
+
+            if (this.value && !panPartialRegex.test(this.value)) {
+                panError.textContent = "Invalid PAN card format";
+                this.value = ''; // Clear the input value
+            } else {
+                panError.textContent = ""; // Clear the error message if the input is valid
+            }
+        });
+        panCardInput.addEventListener('blur', function () {
+            const panFullRegex = /^[A-Z]{4}\d{5}[A-Z]$/;
+
+            if (this.value && !panFullRegex.test(this.value)) {
+                panError.textContent = "Wrong PAN card number";
+                this.value = ''; // Clear the input value
+            } else {
+                panError.textContent = ""; // Clear the error message if the input is valid
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded',function(){
+            var loginButton = document.getElementById("RED");
+            loginButton.addEventListener('click',function(){
+            window.location.href = 'Account.html';
+            })
+        });
+    </script>
+
+    <!-- <script>// Hard-coded user data (for demonstration purposes)
+        const users = [
+            { accountNumber: "200002", email: "sashank@gmail.com", password: "Sashank@2003" },
+            { accountNumber: "200048", email: "teerth@gmail.com", password: "Teerth@2002" },
+            { accountNumber: "210044", email: "rupa@gmail.com", password: "Rupa@2003" }
+        ];
+
+        const loginForm = document.getElementById("login");
+
+        login.addEventListener("submit", function (event) {
+            event.preventDefault(); // Prevent the form from submitting
+
+            // Get user input
+            const accountNumber = document.getElementById("accountNumber").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            // Check if the entered credentials match any user
+            const user = users.find(user => user.accountNumber === accountNumber && user.email === email && user.password === password);
+
+            if (user) {
+                alert("login succesful")
+            } else {
+                alert("Invalid credentials. Please try again.");
+            }
+        });
+    </script> -->
+</body>
+
+</html>
